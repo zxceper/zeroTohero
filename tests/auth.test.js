@@ -6,7 +6,7 @@ import { faker, Faker } from '@faker-js/faker';
 const getRandomName = function() {faker.person.firstName()};
 const getRandomEmail = function () { faker.internet.email()};
 const getRandomPassword = function () {faker.internet.password()};
-
+const sasuke = 'naruto'
 
 test('test', async ({ page }) => {
   await page.goto('https://realworld.qa.guru/#/');
