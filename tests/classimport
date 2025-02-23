@@ -1,0 +1,6 @@
+const mainPage = new MainPage(page);
+const sigUpPage = new SignUpPage(page);
+const feedPage = new FeedPage (page);
+const arcticlePage = new ArticlePage(page)
+const settingPage = new SettingPage(page);
+const loginPage = new LoginPage(page);
