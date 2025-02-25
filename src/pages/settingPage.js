@@ -7,6 +7,7 @@ export class SettingPage {
         this.goToPassword = page.getByRole('textbox', { name: 'Password' });
         this.sumbitChanges = page.getByRole('button', { name: 'Update Settings' });
         this.gotToLogout = page.getByRole('link', { name: 'Logout' })
+        this.openProfileDropdown = page.locator('.nav-link.dropdown-toggle.cursor-pointer');
         
     }
         async changePassword (newPass) {
@@ -16,6 +17,7 @@ export class SettingPage {
 
         }
         async logout () {
+            await this.openProfileDropdown.click();
             await this.gotToLogout.click();
 
         }

@@ -1,37 +1,50 @@
 import { test, expect } from '@playwright/test';
 import { faker, Faker } from '@faker-js/faker';
-import { MainPage } from '../src/mainPage';
-import { SignUpPage } from '../src/signUpPage';
-import { FeedPage } from '../src/feedPage';
-import { ArticlePage } from '../src/arcticlePage';
+import { MainPage,SignUpPage,FeedPage,ArticleEditorPage,SettingPage,LoginPage,ArticlePage } from '../src/pages/index';
+import { UserFieldBuilder,ArcticleBuilder } from '../src/builder/builder/index';
+
 test.describe ('registrationBeforeEach', () => {
+   const usernameBuilder =  new UserFieldBuilder()
+    .addUserEmail()
+    .addUserName()
+    .addUserPassword()
+    .addUserNewPassword()
+    .generateUsesFields(); 
 test.beforeEach('user registation', async ({ page }) => {
-  const username = faker.person.firstName();
-  const email = faker.internet.email();
-  const password = faker.internet.password();
   const mainPage = new MainPage(page);
   const sigUpPage = new SignUpPage(page);
+  const feedPage = new FeedPage (page);
   await mainPage.open();
   await mainPage.signUp();
-  await sigUpPage.registation(username,email,password);
-  await expect(page.getByRole('navigation')).toContainText(username)
+  await sigUpPage.registation(usernameBuilder.username,usernameBuilder.email,usernameBuilder.password);
+  await expect(feedPage.profileNamePlace).toContainText(usernameBuilder.username)
 });
 test('newArcticle', async ({ page }) => {
-  const title = faker.lorem.word()
-  const about = faker.lorem.words()
-  const text = faker.lorem.words(15)
-  const tag1 = faker.lorem.word()
-  const tag2 = faker.lorem.word()
-  const tag3 = faker.lorem.word()
   const feedPage = new FeedPage (page);
-  const arcticlePage = new ArticlePage(page)
+  const arcticleBuilder = new ArcticleBuilder()
+  .addAbout()
+  .addTag1()
+  .addText()
+  .addTag2()
+  .addTag3()
+  .addTitle()
+  .generateArticle();
+  const arcticleEditorPage = new ArticleEditorPage (page)
+  const articlePage = new ArticlePage (page)
   await feedPage.goToArcticle();
-  await arcticlePage.newArcticle(title,about,text,tag1,tag2,tag3)
-  await expect(page.getByRole('heading')).toContainText(title);
-  await expect(page.getByRole('paragraph')).toContainText(text);
-  await expect(page.getByRole('main')).toContainText(tag1)
-  await expect(page.getByRole('main')).toContainText(tag2)
-  await expect(page.getByRole('main')).toContainText(tag3)
+  await arcticleEditorPage.newArcticle(
+    arcticleBuilder.title,
+    arcticleBuilder.about,
+    arcticleBuilder.text,
+    arcticleBuilder.tag1,
+    arcticleBuilder.tag2,
+    arcticleBuilder.tag3);
+  await articlePage.goNewToArticlePage(arcticleBuilder.title)
+  await expect(articlePage.articleTitle).toContainText(arcticleBuilder.title);
+  await expect(articlePage.arcticleText).toContainText(arcticleBuilder.text);
+  await expect(articlePage.arcticleTag).toContainText(arcticleBuilder.tag1);
+  await expect(articlePage.arcticleTag).toContainText(arcticleBuilder.tag2);
+  await expect(articlePage.arcticleTag).toContainText(arcticleBuilder.tag3);
   ;
 })
 
