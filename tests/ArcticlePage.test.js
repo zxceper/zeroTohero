@@ -1,5 +1,4 @@
 import { test, expect } from '@playwright/test';
-import { faker, Faker } from '@faker-js/faker';
 import { MainPage,SignUpPage,FeedPage,ArticleEditorPage,SettingPage,LoginPage,ArticlePage } from '../src/pages/index';
 import { UserFieldBuilder,ArcticleBuilder } from '../src/builder/builder/index';
 

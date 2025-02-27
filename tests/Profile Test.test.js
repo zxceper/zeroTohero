@@ -1,5 +1,4 @@
 import { test, expect } from '@playwright/test';
-import { faker, Faker } from '@faker-js/faker';
 import { MainPage,SignUpPage,FeedPage,ArticlePage,SettingPage,LoginPage } from '../src/pages/index';
 import { UserFieldBuilder } from '../src/builder/builder/index';
 
@@ -30,8 +29,8 @@ test('changePassword', async ({ page }) => {
     await settingPage.changePassword(usernameBuilder.newPassword);
     await settingPage.logout();
     await mainPage.login();
-    await loginPage.loginWithNewPass(usernameBuilder.email,usernameBuilder.newPassword)
-    await expect(feedPage.profileNamePlace).toContainText(usernameBuilder.username)
+    await loginPage.loginWithNewPass(usernameBuilder.email,usernameBuilder.newPassword);
+    await expect(feedPage.profileNamePlace).toContainText(usernameBuilder.username);
 
 
   ;
