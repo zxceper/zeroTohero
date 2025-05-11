@@ -5,14 +5,5 @@ node_modules/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
-/allure-report
-/.allure
 /allure-results
-/playwright-report
-/playwright-report
-/playwright-report/trace
-/playwright-report/trace
-/playwright-report
-playwright-report/trace/assets/codeMirrorModule-CyuxU5C-.js
-/playwright-report
-.DS_Store
+/allure-report
